@@ -1,16 +1,29 @@
-import { Stack, Typography } from "@mui/material";
+"use client";
+import OpCard from "@/components/OpCard";
+import { useOps } from "@/hooks/useOps";
+import {
+  Alert,
+  CircularProgress,
+  Container,
+  Stack,
+  Typography,
+} from "@mui/material";
 
 export default function Home() {
+  const { ops, loading, error } = useOps();
+
+  if (loading) return <CircularProgress />;
+  if (error) return <Alert severity="error">{error}</Alert>;
+
   return (
-    <Stack
-      sx={{
-        width: "100%",
-        height: "100vh",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <Typography variant="h1">Hello World</Typography>
-    </Stack>
+    <Container sx={{ mt: 5 }}>
+      <Typography variant="h4" gutterBottom>
+        Available Ops
+      </Typography>
+
+      {ops.map((op) => (
+        <OpCard key={op.opId} op={op} />
+      ))}
+    </Container>
   );
 }
