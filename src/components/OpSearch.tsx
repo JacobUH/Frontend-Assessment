@@ -9,7 +9,7 @@ interface OpSearchProps {
 
 export default function OpSearch({ label, value, onChange }: OpSearchProps) {
   return (
-    <Box sx={{ my: 3 }}>
+    <Box sx={{ my: { xs: 0, sm: 3 } }}>
       <TextField
         variant="filled"
         label={label}
@@ -38,7 +38,7 @@ export default function OpSearch({ label, value, onChange }: OpSearchProps) {
             borderBottomColor: "white",
           },
           "& .MuiFilledInput-underline:after": {
-            borderBottomColor: `${colors.primary}`,
+            borderBottomColor: colors.primary,
           },
         }}
       />
