@@ -57,7 +57,7 @@ export default function OpSelect({
           },
         }}
       >
-        <InputLabel id="sort-label">Sort By</InputLabel>
+        <InputLabel id="sort-label">{label}</InputLabel>
         <Select
           variant="filled"
           labelId="sort-label"
