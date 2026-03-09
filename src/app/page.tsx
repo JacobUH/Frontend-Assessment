@@ -1,6 +1,7 @@
 "use client";
 import OpCard from "@/components/OpCard";
 import OpSearch from "@/components/OpSearch";
+import OpSelect from "@/components/OpSelect";
 import { useOps } from "@/hooks/useOps";
 import colors from "@/theme/colors";
 import {
@@ -19,6 +20,9 @@ export default function Home() {
   const [employeeSearch, setEmployeeSearch] = useState<string>("");
   const [titleSearch, setTitleSearch] = useState<string>("");
   const [idSearch, setIdSearch] = useState<string>("");
+
+  const [sortBy, setSortBy] = useState("");
+  const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
 
   if (loading) return <CircularProgress />;
   if (error) return <Alert severity="error">{error}</Alert>;
@@ -48,29 +52,39 @@ export default function Home() {
           Worker Dashboard
         </Typography>
         <Grid container spacing={2} alignItems="center">
-          <Grid size={{ xs: 4 }}>
+          <Grid size={{ xs: 12, sm: 3 }}>
             <OpSearch
               label="Employee"
               value={employeeSearch}
               onChange={setEmployeeSearch}
             />
           </Grid>
-          <Grid size={{ xs: 4 }}>
+          <Grid size={{ xs: 12, sm: 3 }}>
             <OpSearch
               label="Operator Title"
               value={titleSearch}
               onChange={setTitleSearch}
             />
           </Grid>
-          <Grid size={{ xs: 4 }}>
+          <Grid size={{ xs: 12, sm: 3 }}>
             <OpSearch
               label="Public ID"
               value={idSearch}
               onChange={setIdSearch}
             />
           </Grid>
+          <Grid size={{ xs: 12, sm: 3 }}>
+            <OpSelect
+              label="Sort By"
+              value={sortBy}
+              onChange={setSortBy}
+              direction={sortDirection}
+              onToggleDirection={() =>
+                setSortDirection((prev) => (prev === "asc" ? "desc" : "asc"))
+              }
+            />
+          </Grid>
         </Grid>
-
         {filteredOps.map((op) => {
           const matchingOperators = op.operators.filter((operator) =>
             `${operator.firstName} ${operator.lastName}`
